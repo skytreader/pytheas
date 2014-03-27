@@ -14,5 +14,4 @@ class Pytheas(object):
 
     def run(self):
         with daemon.DaemonContext():
-            self.__fetcher.fetch()
-            self.__sender.send()
+            self.__sender.send(self.__fetcher.fetch())
