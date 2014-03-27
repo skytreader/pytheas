@@ -1,4 +1,5 @@
 import daemon
+import time
 
 class Pytheas(object):
     """
@@ -14,4 +15,6 @@ class Pytheas(object):
 
     def run(self):
         with daemon.DaemonContext():
-            self.__sender.send(self.__fetcher.fetch())
+            while True:
+                self.__sender.send(self.__fetcher.fetch())
+                time.sleep(1)
