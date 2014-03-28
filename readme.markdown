@@ -36,6 +36,8 @@ As simple as...
 Note that there is no need for `nohup` and/or background sigils. A simple
 `python` invocation and your code is a [proper Unix daemon](http://legacy.python.org/dev/peps/pep-3143/#correct-daemon-behaviour).
 
+See the examples for concrete examples.
+
 ## caveat emptor
 
 Wanted: tests. Never used in production anywhere. Very proof-of-concept.
@@ -51,6 +53,13 @@ Wanted: tests. Never used in production anywhere. Very proof-of-concept.
 ## todo
 
 Tests. Use `gevent`. Make stuff configurable. Did I mention tests?
+
+# Running examples
+
+The examples fetch and send via Redis queues. The import path assume that Pytheas
+is installed in your system. This package is now in PyPI so just do
+
+    pip install Pytheas
 
 # License
 

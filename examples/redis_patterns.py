@@ -1,5 +1,5 @@
-import patterns
-import pytheas
+import pytheas.patterns
+import pytheas.pytheas
 import redis
 
 # Config stuff
@@ -9,7 +9,7 @@ REDIS_HOST = "localhost"
 REDIS_PORT = 6379
 
 
-class RedisFetcher(patterns.Fetcher):
+class RedisFetcher(pytheas.patterns.Fetcher):
     
     def __init__(self, redis_host, redis_port, fetch_list):
         self.__redis_connection = redis.StrictRedis(redis_host, redis_port)
@@ -18,7 +18,7 @@ class RedisFetcher(patterns.Fetcher):
     def fetch(self):
         return self.__redis_connection.brpop(self.fetch_list)[1]
 
-class RedisSender(patterns.Sender):
+class RedisSender(pytheas.patterns.Sender):
     
     def __init__(self, redis_host, redis_port, send_list):
         self.__redis_connection = redis.StrictRedis(redis_host, redis_port)
@@ -30,5 +30,5 @@ class RedisSender(patterns.Sender):
 if __name__ == "__main__":
     local_fetcher = RedisFetcher(REDIS_HOST, REDIS_PORT, FETCH_LIST)
     local_sender = RedisSender(REDIS_HOST, REDIS_PORT, SEND_LIST)
-    redis_daemon = pytheas.Pytheas(local_fetcher, local_sender)
+    redis_daemon = pytheas.pytheas.Pytheas(local_fetcher, local_sender)
     redis_daemon.run()
