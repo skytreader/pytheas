@@ -1,0 +1,2 @@
+v0.1.0, March 28 2014 -- Proof-of-concept commit with basic packaging.
+v0.1.1, March 28 2014 -- Minor cosmetic improvements to PyPI packaging.
