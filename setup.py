@@ -4,8 +4,11 @@ from distutils.core import setup
 
 setup(
     name = "Pytheas",
-    version = "0.1.0",
+    version = "0.1.1",
+    author = "Chad Estioco",
+    author_email = "chadestioco@gmail.com",
+    url = "https://github.com/skytreader/pytheas",
     packages = ["pytheas",],
     license = "MIT",
-    long_description = open("readme.markdown").read(),
+    description = "Framework for a fetch-and-send daemon.",
 )
