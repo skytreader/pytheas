@@ -48,6 +48,10 @@ Wanted: tests. Never used in production anywhere. Very proof-of-concept.
 
 **Windows?** Windows?
 
+## todo
+
+Tests. Use `gevent`. Make stuff configurable. Did I mention tests?
+
 # License
 
 The MIT License (MIT)
