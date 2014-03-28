@@ -9,12 +9,13 @@ class Pytheas(object):
         those classes. Call the run method of this Pytheas object and you're set.
     """
     
-    def __init__(self, fetcher, sender):
+    def __init__(self, fetcher, sender, sleep_time=1):
         self.__fetcher = fetcher
         self.__sender = sender
+        self.sleep_time = sleep_time
 
     def run(self):
         with daemon.DaemonContext():
             while True:
                 self.__sender.send(self.__fetcher.fetch())
-                time.sleep(1)
+                time.sleep(self.sleep_time)
