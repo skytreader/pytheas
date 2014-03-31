@@ -52,7 +52,8 @@ Wanted: tests. Never used in production anywhere. Very proof-of-concept.
 
 ## todo
 
-Tests. Use `gevent`. Make stuff configurable. Did I mention tests?
+Tests. Use `gevent`. Make stuff configurable. Add signals port. Did I mention
+tests?
 
 # Running examples
 
