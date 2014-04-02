@@ -1,5 +1,5 @@
 import gevent
-import daemon as daemonizer
+import daemon
 import time
 
 from gevent.lock import Semaphore
@@ -53,7 +53,7 @@ class Pytheas(object):
                 sockfile.flush()
 
     def run(self):
-        with daemonizer.DaemonContext():
+        with daemon.DaemonContext():
             self.__external_server.start()
             while True:
                 self.__sender.send(self.__fetcher.fetch())

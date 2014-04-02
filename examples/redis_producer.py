@@ -1,5 +1,5 @@
 import pytheas.patterns
-import pytheas.pytheas
+import pytheas.sfdaemon
 import random
 import string
 
@@ -19,5 +19,5 @@ class RandGenFetcher(pytheas.patterns.Fetcher):
 
 stringgen = RandGenFetcher()
 producer_sender = RedisSender(REDIS_HOST, REDIS_PORT, PUT_LIST)
-producer_daemon = pytheas.pytheas.Pytheas(stringgen, producer_sender)
+producer_daemon = pytheas.sfdaemon.Pytheas(stringgen, producer_sender)
 producer_daemon.run()

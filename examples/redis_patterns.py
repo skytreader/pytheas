@@ -1,5 +1,5 @@
 import pytheas.patterns
-import pytheas.pytheas
+import pytheas.sfdaemon
 import redis
 
 # Config stuff
@@ -30,5 +30,5 @@ class RedisSender(pytheas.patterns.Sender):
 if __name__ == "__main__":
     local_fetcher = RedisFetcher(REDIS_HOST, REDIS_PORT, FETCH_LIST)
     local_sender = RedisSender(REDIS_HOST, REDIS_PORT, SEND_LIST)
-    redis_daemon = pytheas.pytheas.Pytheas(local_fetcher, local_sender)
+    redis_daemon = pytheas.sfdaemon.Pytheas(local_fetcher, local_sender)
     redis_daemon.run()
