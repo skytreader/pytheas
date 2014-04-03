@@ -3,7 +3,13 @@ import pytheas.sfdaemon
 import random
 import string
 
+import logging
+
 from redis_patterns import RedisSender
+
+logging.basicConfig(filename="pytheas.log")
+logger = logging.getLogger("pytheas")
+logger.setLevel(logging.INFO)
 
 
 # Config stuff
@@ -17,7 +23,10 @@ class RandGenFetcher(pytheas.patterns.Fetcher):
     def fetch(self):
         return "".join([random.choice(string.lowercase) for i in range(5)])
 
-stringgen = RandGenFetcher()
-producer_sender = RedisSender(REDIS_HOST, REDIS_PORT, PUT_LIST)
-producer_daemon = pytheas.sfdaemon.Pytheas(stringgen, producer_sender)
-producer_daemon.run()
+if __name__ == "__main__":
+    logger.info("Starting redis_producer")
+    stringgen = RandGenFetcher()
+    producer_sender = RedisSender(REDIS_HOST, REDIS_PORT, PUT_LIST)
+    producer_daemon = pytheas.sfdaemon.Pytheas(stringgen, producer_sender)
+    producer_daemon.run()
+    logger.info("producer started")

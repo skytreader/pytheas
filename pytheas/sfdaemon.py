@@ -1,9 +1,14 @@
 import gevent
+import logging
 import daemon
 import time
 
 from gevent.lock import Semaphore
 from gevent.server import StreamServer
+
+logging.basicConfig(filename="pytheas.log")
+logger = logging.getLogger("pytheas")
+logger.setLevel(logging.INFO)
 
 class Pytheas(object):
     """
@@ -36,10 +41,12 @@ class Pytheas(object):
 
         All messages (commands and replies) are terminated by newlines (`\n`).
         """
+        logger.info("external server received connection")
         sockfile = socket.makefile()
 
         while True:
             command = sockfile.readline()
+            logger.info("issued command " + command)
             if not command:
                 break
             else:
@@ -54,7 +61,9 @@ class Pytheas(object):
 
     def run(self):
         with daemon.DaemonContext():
-            self.__external_server.start()
+            logger.info("daemon started")
+            #self.__external_server.start()
+            logger.info("external server started")
             while True:
                 self.__sender.send(self.__fetcher.fetch())
                 gevent.sleep(self.sleep_time)

@@ -1,6 +1,7 @@
 import pytheas.patterns
 import pytheas.sfdaemon
 import redis
+import logging
 
 # Config stuff
 FETCH_LIST = "fetch_list"
@@ -8,6 +9,9 @@ SEND_LIST = "send_list"
 REDIS_HOST = "localhost"
 REDIS_PORT = 6379
 
+logging.basicConfig(filename="pytheas.log")
+logger = logging.getLogger("pytheas")
+logger.setLevel(logging.INFO)
 
 class RedisFetcher(pytheas.patterns.Fetcher):
     
@@ -22,9 +26,11 @@ class RedisSender(pytheas.patterns.Sender):
     
     def __init__(self, redis_host, redis_port, send_list):
         self.__redis_connection = redis.StrictRedis(redis_host, redis_port)
+        logger.info("RedisSender connection established")
         self.send_list = send_list
 
     def send(self, data):
+        logger.info("RedisSender sending data: " + data)
         self.__redis_connection.lpush(self.send_list, data)
 
 if __name__ == "__main__":
