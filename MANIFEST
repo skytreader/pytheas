@@ -3,4 +3,4 @@ setup.cfg
 setup.py
 pytheas/__init__.py
 pytheas/patterns.py
-pytheas/pytheas.py
+pytheas/sfdaemon.py
