@@ -26,7 +26,10 @@ class RandGenFetcher(pytheas.patterns.Fetcher):
 if __name__ == "__main__":
     logger.info("Starting redis_producer")
     stringgen = RandGenFetcher()
+    logger.info("Random fetcher instantiated")
     producer_sender = RedisSender(REDIS_HOST, REDIS_PORT, PUT_LIST)
+    logger.info("Sender instantiated")
     producer_daemon = pytheas.sfdaemon.Pytheas(stringgen, producer_sender)
+    logger.info("producer daemon instantiated")
     producer_daemon.run()
-    logger.info("producer started")
+    logger.info("producer daemon started")
