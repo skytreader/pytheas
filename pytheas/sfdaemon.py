@@ -1,10 +1,10 @@
-import gevent
+#import gevent
 import logging
 import daemon
 import time
 
-from gevent.lock import Semaphore
-from gevent.server import StreamServer
+#from gevent.lock import Semaphore
+#from gevent.server import StreamServer
 
 logging.basicConfig(filename="pytheas.log")
 logger = logging.getLogger("pytheas")
@@ -22,13 +22,13 @@ class Pytheas(object):
         self.__fetcher = fetcher
         self.__sender = sender
         self.sleep_time = sleep_time
-        self.__external_server = StreamServer(("127.0.0.0", 16981), self.__listen_external)
+        #self.__external_server = StreamServer(("127.0.0.0", 16981), self.__listen_external)
         self.__ticket_counter = 1
-        self.__ticket_counter_lock = Semaphore()
+        #self.__ticket_counter_lock = Semaphore()
 
     def __sendfetch(self):
         self.__sender.send(self.__fetcher.fetch())
-        gevent.sleep(1)
+        #gevent.sleep(1)
 
     def __listen_external(self, socket, address):
         """
@@ -66,7 +66,7 @@ class Pytheas(object):
         with daemon.DaemonContext(stderr=errfile):
             logger.info("daemon started")
             #self.__external_server.start()
-            logger.info("external server started")
+            #logger.info("external server started")
             while True:
                 self.__sender.send(self.__fetcher.fetch())
                 #gevent.sleep(self.sleep_time)

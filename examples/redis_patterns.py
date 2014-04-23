@@ -26,12 +26,12 @@ class RedisSender(pytheas.patterns.Sender):
     
     def __init__(self, redis_host, redis_port, send_list):
         self.__redis_connection = redis.StrictRedis(redis_host, redis_port)
-        logger.info("RedisSender connection established")
+        #logger.info("RedisSender connection established")
         self.send_list = send_list
 
     def send(self, data):
-        logger.info("RedisSender sending data: " + data)
         self.__redis_connection.lpush(self.send_list, data)
+        #logger.info("Sent to redis: " + data)
 
 if __name__ == "__main__":
     local_fetcher = RedisFetcher(REDIS_HOST, REDIS_PORT, FETCH_LIST)
