@@ -59,6 +59,7 @@ class Pytheas(object):
                 sockfile.flush()
 
     def run(self):
+        print "Running daemon run"
         logger.info("about to run daemon")
         errfile = open("err.out", "w")
         logger.info("daemon started")
@@ -66,4 +67,6 @@ class Pytheas(object):
         #logger.info("external server started")
         while True:
             self.__sender.send(self.__fetcher.fetch())
+            print "Sleep"
             gevent.sleep(self.sleep_time)
+            print "Awake"
