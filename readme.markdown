@@ -33,10 +33,33 @@ As simple as...
         daemon = pytheas.Pytheas()
         daemon.run()
 
-Note that there is no need for `nohup` and/or background sigils. A simple
-`python` invocation and your code is a [proper Unix daemon](http://legacy.python.org/dev/peps/pep-3143/#correct-daemon-behaviour).
+Then, invoke your code as follows to [properly daemonize](http://legacy.python.org/dev/peps/pep-3143/#correct-daemon-behaviour):
+    
+    nohup python codesrc.py > codesrc.out 2> &1 &
+
+See [this](http://stackoverflow.com/a/2423550/777225) StackOverflow answer for
+more details on the invocations.
 
 See the examples for concrete examples.
+
+### wait a minute...
+
+Yah. The early stages of this project wanted to feature the capability of creating
+daemons without having to use `nohup` and all those sigils. It used
+[python-daemon](https://pypi.python.org/pypi/python-daemon/1.5.5) to achieve that
+effect. However, as of this writing, it has been more than four years since
+python-daemon was last updated and,
+[as I found out](https://github.com/skytreader/pytheas/commit/26b26fa1bc56bd66c7b8fc01715bf84d1e3ffb5f),
+python-daemon is not compatible with gevent.
+
+### so that's it?
+
+[geventdaemon](https://github.com/gwik/geventdaemon) looks worth a try but
+(again as of this writing) it has been two years since the last commit so I'm
+not expecting much.
+
+If you want to give it a try (or maybe hack your own compatibility layer), just
+give me a shout (or a pull request).
 
 ## caveat emptor
 
