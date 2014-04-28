@@ -1,3 +1,4 @@
 v0.1.0, March 28 2014 -- Proof-of-concept commit with basic packaging.
 v0.1.1, March 28 2014 -- Minor cosmetic improvements to PyPI packaging.
 v0.1.2, April 23 2014 -- Minor packaging improvements. "Rollback fix".
+v0.2.0, April 28 2014 -- Fully ditching python-daemon for gevent.
