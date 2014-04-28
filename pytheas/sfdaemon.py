@@ -21,7 +21,7 @@ class Pytheas(object):
         self.__fetcher = fetcher
         self.__sender = sender
         self.sleep_time = sleep_time
-        self.__external_server = StreamServer(("127.0.0.0", 16981), self.__listen_external)
+        #self.__external_server = StreamServer(("127.0.0.0", 16981), self.__listen_external)
         self.__ticket_counter = 1
         self.__ticket_counter_lock = Semaphore()
 
@@ -60,10 +60,9 @@ class Pytheas(object):
 
     def run(self):
         logger.info("about to run daemon")
-        logger.info(str(dir(daemon)))
         errfile = open("err.out", "w")
         logger.info("daemon started")
-        self.__external_server.start()
+        #self.__external_server.start()
         #logger.info("external server started")
         while True:
             self.__sender.send(self.__fetcher.fetch())
