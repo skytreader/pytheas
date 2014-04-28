@@ -18,19 +18,19 @@ be used in the [OSI Application Layer](http://en.wikipedia.org/wiki/Application_
 
 As simple as...
 
-    import patterns
-    import pytheas
+    import pytheas.patterns
+    import pytheas.sfdaemon
 
-    class MyFetcher(patterns.Fetcher):
+    class MyFetcher(pytheas.patterns.Fetcher):
         # Implementations go
 
-    class MySender(patterns.Sender):
+    class MySender(pytheas.patterns.Sender):
         # Implementations go
 
     if __name__ == "__main__":
         myfetcher = MyFetcher()
         mysender = MySender()
-        daemon = pytheas.Pytheas()
+        daemon = pytheas.sfdaemon.Pytheas()
         daemon.run()
 
 Then, invoke your code as follows to [properly daemonize](http://legacy.python.org/dev/peps/pep-3143/#correct-daemon-behaviour):
