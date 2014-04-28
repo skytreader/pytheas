@@ -6,5 +6,7 @@
 *.log
 *.log.*
 *.bak
+*.out
+*.rdb
 dist/
 build/

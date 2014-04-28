@@ -4,7 +4,7 @@ from distutils.core import setup
 
 setup(
     name = "Pytheas",
-    version = "0.1.2",
+    version = "0.2.0",
     author = "Chad Estioco",
     author_email = "chadestioco@gmail.com",
     url = "https://github.com/skytreader/pytheas",
