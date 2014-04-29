@@ -61,6 +61,35 @@ not expecting much.
 If you want to give it a try (or maybe hack your own compatibility layer), just
 give me a shout (or a pull request).
 
+## other features
+
+### commands server
+
+You can communicate with a running daemon via the command server. By default,
+Pytheas listens to port 16981. You can specify your own port via the constructor
+of Pytheas.
+
+    pytheas.sfdaemon.Pytheas(fetcher, sender, port=8888)
+
+You can also create your own command handler and pass it to the Pytheas
+constructor as follows:
+
+_TODO_: Expand on this
+
+    pytheas.sfdaemon.Pytheas(fetcher, sender, command_interpreter=my_interpreter)
+
+Q: I'm stingy with ports and don't need to signal to my daemons anyway. Can I
+instruct Pytheas to _not run_ the command server?  
+A: Yes. Just pass `port=None` to the Pytheas constructor.
+
+Q: What's the format for commands?  
+A: You can specify your own format for your own interpreter as long as it takes
+the newline character (`\n`) as a terminator. However, the reserved commands of
+Pytheas use JSON so you may want to adopt that for the sake of world peace.
+
+Q: What are Pytheas' reserved commands?  
+A: Coming soon...
+
 ## caveat emptor
 
 Wanted: more tests. Never used in production anywhere. Very proof-of-concept.
@@ -77,8 +106,8 @@ See also, **todo** below.
 
 ## todo
 
-More tests. Make stuff configurable. Add signals port. Did I mention more tests?
-What about better tests?
+More tests. Make stuff configurable. Did I mention more tests? What about better
+tests?
 
 # Running examples
 

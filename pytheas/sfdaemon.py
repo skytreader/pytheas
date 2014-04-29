@@ -17,11 +17,23 @@ class Pytheas(object):
         those classes. Call the run method of this Pytheas object and you're set.
     """
     
-    def __init__(self, fetcher, sender, sleep_time=1):
+    def __init__(self, fetcher, sender, sleep_time=1, command_interpreter=None, port=16981):
+        """
+        Instantiate a daemon object.
+
+        fetcher -- A pytheas.patterns.Fetcher object.
+        sender -- A pytheas.patters.Sender object.
+        sleep_time -- Amount of sleep after every fetch/send iteration. Defaults
+            to 1 second.
+        port -- Port from which we listen for commands.
+        """
         self.__fetcher = fetcher
         self.__sender = sender
         self.sleep_time = sleep_time
-        #self.__external_server = StreamServer(("127.0.0.0", 16981), self.__listen_external)
+        if port:
+            self.__external_server = StreamServer(("127.0.0.0", port), self.__listen_external)
+        else:
+            self.__external_server = None
         self.__ticket_counter = 1
         self.__ticket_counter_lock = Semaphore()
 
@@ -59,11 +71,12 @@ class Pytheas(object):
                 sockfile.flush()
 
     def run(self):
-        #logger.info("about to run daemon")
-        #errfile = open("err.out", "w")
-        #logger.info("daemon started")
-        #self.__external_server.start()
-        #logger.info("external server started")
+        logger.info("Daemon started")
+
+        if self.__external_server:
+            self.__external_server.start()
+            logger.info("External server started")
+        
         while True:
             self.__sender.send(self.__fetcher.fetch())
             gevent.sleep(self.sleep_time)
