@@ -28,13 +28,11 @@ out_queue = Queue()
 class InQueueFetcher(pytheas.patterns.Fetcher):
     
     def fetch(self):
-        print "Fetch"
         return in_queue.get()
 
 class OutQueueSender(pytheas.patterns.Sender):
     
     def send(self, data):
-        print "Send"
         out_queue.put_nowait(data)
 
 class ModulesTest(unittest.TestCase):
@@ -50,14 +48,11 @@ class ModulesTest(unittest.TestCase):
 
     def test_pytheas(self):
         wait_time = len(self.in_items)
-        gevent.joinall([
-        gevent.spawn(self.daemon.run),
-        gevent.spawn(self.__actual_test)
-        ])
+        gevent.spawn(self.daemon.run).join(timeout=wait_time)
+        gevent.spawn(self.__actual_test).join()
         #gevent.sleep()
 
     def __actual_test(self):
-        print "Running actual_test"
         self.assertEqual(in_queue.qsize(), 0)
         gevent.sleep()
  
