@@ -63,7 +63,9 @@ give me a shout (or a pull request).
 
 ## caveat emptor
 
-Wanted: tests. Never used in production anywhere. Very proof-of-concept.
+Wanted: more tests. Never used in production anywhere. Very proof-of-concept.
+
+See also, **todo** below.
 
 ### will this work in...
 
@@ -75,8 +77,8 @@ Wanted: tests. Never used in production anywhere. Very proof-of-concept.
 
 ## todo
 
-Tests. Use `gevent`. Make stuff configurable. Add signals port. Did I mention
-tests?
+More tests. Make stuff configurable. Add signals port. Did I mention more tests?
+What about better tests?
 
 # Running examples
 
