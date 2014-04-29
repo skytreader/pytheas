@@ -60,9 +60,9 @@ class Pytheas(object):
 
     def run(self):
         print "Running daemon run"
-        logger.info("about to run daemon")
-        errfile = open("err.out", "w")
-        logger.info("daemon started")
+        #logger.info("about to run daemon")
+        #errfile = open("err.out", "w")
+        #logger.info("daemon started")
         #self.__external_server.start()
         #logger.info("external server started")
         while True:
