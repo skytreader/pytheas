@@ -28,7 +28,7 @@ class PytheasCommandInterpreter(CommandInterpreter):
         {"set":<attribute>, "val":<new value>}
     """
     
-    NUMERIC = re.compile(r"\d+")
+    NUMERIC = re.compile(r"(\d*\.?)\d+")
 
     VALID_ATTRIBUTES = set(("sleep_time",))
     VALUE_VALIDATIONS = {"sleep_time": NUMERIC}
@@ -43,15 +43,15 @@ class PytheasCommandInterpreter(CommandInterpreter):
     def interpret_command(self, data):
         command = json.loads(data)
         set_key = command.get("set")
-        val_key = command.get("val")
+        val_key = str(command.get("val"))
         
         if set_key and val_key:
             if set_key not in PytheasCommandInterpreter.VALID_ATTRIBUTES:
                 raise InvalidCommandException(data)
             else:
-                if PytheasCommandInterpreter.VALUE_VALIDATIONS[set_key].match(str(val_key)):
+                if PytheasCommandInterpreter.VALUE_VALIDATIONS[set_key].match(val_key):
                     if set_key == "sleep_time":
-                        self.daemon.sleep_time = int(val_key)
+                        self.daemon.sleep_time = float(val_key) if "." in val_key else int(val_key)
                         return True
                 else:
                     raise InvalidCommandException(data)

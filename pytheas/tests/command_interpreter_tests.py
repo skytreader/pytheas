@@ -39,7 +39,7 @@ class CommandInterpreterTests(unittest.TestCase):
         self.assertTrue(self.pci.interpret_command(float_command))
         self.assertEqual(self.mock_daemon.sleep_time, 3.14)
 
-        fractional_command = '{"set":"sleep_time", "val":.42}'
+        fractional_command = '{"set":"sleep_time", "val":0.42}'
         self.assertTrue(self.pci.interpret_command(fractional_command))
         self.assertEqual(self.mock_daemon.sleep_time, 0.42)
 
