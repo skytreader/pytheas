@@ -112,6 +112,7 @@ tests?
 Also...
 
   - Ensure fail-fast behavior.
+  - Allow for different fetch-send patterns (basic, queued, etc.).
 
 # Running examples
 
