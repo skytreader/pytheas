@@ -14,6 +14,9 @@ class CommandInterpreter(object):
 
         data -- Assumed as raw from the socket. This method will perform the
         necessary parsing.
+
+        Returns True if the command was successfully executed. Otherwise, might
+        raise InvalidCommandExceptions or return False.
         """
         raise NotImplementedException("This method should be implemented.")
 
@@ -47,8 +50,12 @@ class PytheasCommandInterpreter(CommandInterpreter):
                 raise InvalidCommandException(data)
             else:
                 if PytheasCommandInterpreter.VALUE_VALIDATIONS[set_key].match(val_key):
-                    pass
+                    if set_key == "sleep_time":
+                        daemon.sleep_time = int(val_key)
+                        return True
                 else:
                     raise InvalidCommandException(data)
         else:
             raise InvalidCommandException(data)
+
+        return False
