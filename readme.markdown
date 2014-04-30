@@ -109,6 +109,10 @@ See also, **todo** below.
 More tests. Make stuff configurable. Did I mention more tests? What about better
 tests?
 
+Also...
+
+  - Ensure fail-fast behavior.
+
 # Running examples
 
 The examples fetch and send via Redis queues. The import path assume that Pytheas
