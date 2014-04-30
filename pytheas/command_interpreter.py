@@ -49,9 +49,9 @@ class PytheasCommandInterpreter(CommandInterpreter):
             if set_key not in PytheasCommandInterpreter.VALID_ATTRIBUTES:
                 raise InvalidCommandException(data)
             else:
-                if PytheasCommandInterpreter.VALUE_VALIDATIONS[set_key].match(val_key):
+                if PytheasCommandInterpreter.VALUE_VALIDATIONS[set_key].match(str(val_key)):
                     if set_key == "sleep_time":
-                        daemon.sleep_time = int(val_key)
+                        self.daemon.sleep_time = int(val_key)
                         return True
                 else:
                     raise InvalidCommandException(data)
