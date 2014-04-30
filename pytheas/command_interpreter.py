@@ -1,6 +1,7 @@
 from errors import InvalidCommandException
 
 import json
+import re
 
 class CommandInterpreter(object):
     """
@@ -24,7 +25,7 @@ class PytheasCommandInterpreter(CommandInterpreter):
         {"set":<attribute>, "val":<new value>}
     """
     
-    NUMERIC = r"\d+"
+    NUMERIC = re.compile(r"\d+")
 
     VALID_ATTRIBUTES = set(("sleep_time",))
     VALUE_VALIDATIONS = {"sleep_time": NUMERIC}
@@ -44,5 +45,10 @@ class PytheasCommandInterpreter(CommandInterpreter):
         if set_key and val_key:
             if set_key not in PytheasCommandInterpreter.VALID_ATTRIBUTES:
                 raise InvalidCommandException(data)
+            else:
+                if PytheasCommandInterpreter.VALUE_VALIDATIONS[set_key].match(val_key):
+                    pass
+                else:
+                    raise InvalidCommandException(data)
         else:
             raise InvalidCommandException(data)
