@@ -44,3 +44,5 @@ class PytheasCommandInterpreter(CommandInterpreter):
         if set_key and val_key:
             if set_key not in PytheasCommandInterpreter.VALID_ATTRIBUTES:
                 raise InvalidCommandException(data)
+        else:
+            raise InvalidCommandException(data)

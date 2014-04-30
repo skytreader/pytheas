@@ -4,6 +4,9 @@ from pytheas.sfdaemon import Pytheas
 
 import unittest
 
+def spam():
+    return True
+
 class CommandInterpreterTests(unittest.TestCase):
     
     def test_validation(self):
@@ -13,10 +16,9 @@ class CommandInterpreterTests(unittest.TestCase):
 
         pci = PytheasCommandInterpreter(None)
 
-        with self.assertRaises(InvalidCommandException):
-            pci.interpret_command(empty_set)
-            pci.interpret_command(wrong_set)
-            pci.interpret_command(wrong_val)
+        self.assertRaises(InvalidCommandException, pci.interpret_command, empty_set)
+        self.assertRaises(InvalidCommandException, pci.interpret_command, wrong_set)
+        self.assertRaises(InvalidCommandException, pci.interpret_command, wrong_val)
 
 if __name__ == "__main__":
     unittest.main()
