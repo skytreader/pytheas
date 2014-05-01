@@ -3,7 +3,7 @@ import logging
 import time
 
 from command_interpreter import PytheasCommandInterpreter
-from errors import CorruptedCommandException, InvalidCommandException
+from errors import CorruptedCommunicationException, InvalidCommandException
 
 from gevent.lock import Semaphore
 from gevent.server import StreamServer
@@ -82,18 +82,18 @@ class Pytheas(object):
                     self.__ticket_counter += 1
                     self.__ticket_counter_lock.release()
                     sockfile.write("OK " + str(ticketno))
-                        try:
-                            if self.__default_interpreter.interpret_command(command):
-                                sockfile.write("T" + str(ticketno))
-                            else:
-                                sockfile.write("F" + str(ticketno))
-                        except ValueError, InvalidCommandException:
-                            if self.interpreter.interpret_command(command):
-                                sockfile.write("T" + str(ticketno))
-                            else:
-                                sockfile.write("F" + str(ticketno))
-                        except:
-                            break
+                    try:
+                        if self.__default_interpreter.interpret_command(command):
+                            sockfile.write("T" + str(ticketno))
+                        else:
+                            sockfile.write("F" + str(ticketno))
+                    except ValueError, InvalidCommandException:
+                        if self.interpreter.interpret_command(command):
+                            sockfile.write("T" + str(ticketno))
+                        else:
+                            sockfile.write("F" + str(ticketno))
+                    except:
+                        break
         except e:
             logger.error("Encountered error while reading signal.", e)
         finally:
