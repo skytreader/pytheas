@@ -66,36 +66,38 @@ class Pytheas(object):
         All messages (commands and replies) are terminated by newlines (`\n`).
         """
         logger.info("external server received connection")
-        # FIXME handle sockfile in a finally clause earlier
+        # FIXME So the socket file is persistent? Why the while True? :\
         sockfile = socket.makefile()
 
-        while True:
-            command = sockfile.readline()
-            logger.info("issued command " + command)
-            if not command:
-                # Really, FIXME here! Memory leak staring at you
-                raise CorruptedCommunicationException(command)
-            else:
-                ticketno = -1
-                self.__ticket_counter_lock.acquire()
-                ticketno = self.__ticket_counter
-                self.__ticket_counter += 1
-                self.__ticket_counter_lock.release()
-                sockfile.write("OK " + str(ticketno))
-                try:
-                    if self.__default_interpreter.interpret_command(command):
-                        sockfile.write("T" + str(ticketno))
-                    else:
-                        sockfile.write("F" + str(ticketno))
-                except InvalidCommandException, ValueError:
-                    if self.interpreter.interpret_command(command):
-                        sockfile.write("T" + str(ticketno))
-                    else:
-                        sockfile.write("F" + str(ticketno))
-                except:
-                    break
-                finally:
-                    sockfile.flush()
+        try:
+            while True:
+                command = sockfile.readline()
+                logger.info("issued command " + command)
+                if not command:
+                    raise CorruptedCommunicationException(command)
+                else:
+                    ticketno = -1
+                    self.__ticket_counter_lock.acquire()
+                    ticketno = self.__ticket_counter
+                    self.__ticket_counter += 1
+                    self.__ticket_counter_lock.release()
+                    sockfile.write("OK " + str(ticketno))
+                        try:
+                            if self.__default_interpreter.interpret_command(command):
+                                sockfile.write("T" + str(ticketno))
+                            else:
+                                sockfile.write("F" + str(ticketno))
+                        except ValueError, InvalidCommandException:
+                            if self.interpreter.interpret_command(command):
+                                sockfile.write("T" + str(ticketno))
+                            else:
+                                sockfile.write("F" + str(ticketno))
+                        except:
+                            break
+        except e:
+            logger.error("Encountered error while reading signal.", e)
+        finally:
+            sockfile.flush()
 
     def run(self):
         logger.info("Daemon started")
