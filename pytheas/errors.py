@@ -8,4 +8,9 @@ class InvalidCommandException(Exception):
         self.value = value
 
     def __str__(self):
-        return "Received invalid command: " + str(value)
+        return "Received invalid command: " + str(self.value)
+
+class CorruptedCommunicationException(InvalidCommandException):
+    
+    def __str__(self):
+        return "Fatal corrupted command: " + str(self.value)
