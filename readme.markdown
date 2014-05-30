@@ -22,10 +22,12 @@ As simple as...
     import pytheas.sfdaemon
 
     class MyFetcher(pytheas.patterns.Fetcher):
-        # Implementations go
+        def fetch(self):
+            # Implementations go
 
     class MySender(pytheas.patterns.Sender):
-        # Implementations go
+        def send(self, data):
+            # Implementations go
 
     if __name__ == "__main__":
         myfetcher = MyFetcher()
