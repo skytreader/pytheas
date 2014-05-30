@@ -9,6 +9,7 @@ setup(
     author_email = "chadestioco@gmail.com",
     url = "https://github.com/skytreader/pytheas",
     packages = ["pytheas",],
+    install_requires = ["gevent", "greenlet"],
     license = "MIT",
     description = "Framework for a fetch-and-send daemon.",
 )
