@@ -112,6 +112,8 @@ tests?
 Also...
 
   - Ensure fail-fast behavior.
+  - Allow for different fetch-send patterns (basic, queued, etc.).
+  - Add kill signal.
 
 # Running examples
 
