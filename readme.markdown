@@ -32,7 +32,7 @@ As simple as...
     if __name__ == "__main__":
         myfetcher = MyFetcher()
         mysender = MySender()
-        daemon = pytheas.sfdaemon.Pytheas()
+        daemon = pytheas.sfdaemon.Pytheas(myfetcher, mysender)
         daemon.run()
 
 Then, invoke your code as follows to [properly daemonize](http://legacy.python.org/dev/peps/pep-3143/#correct-daemon-behaviour):
