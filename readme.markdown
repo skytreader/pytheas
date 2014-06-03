@@ -92,6 +92,12 @@ Pytheas use JSON so you may want to adopt that for the sake of world peace.
 Q: What are Pytheas' reserved commands?  
 A: Coming soon...
 
+### concurrency
+
+Q: Can I run two (or more) Pytheas objects from a single process?  
+A: Yes of course. You then have to use GEvent. In a nutshell, make greenlets out
+of every `Pytheas.run` that you want then just invoke `gevent.joinall`.
+
 ## caveat emptor
 
 Wanted: more tests. Never used in production anywhere. Very proof-of-concept.
