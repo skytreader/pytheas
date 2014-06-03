@@ -2,5 +2,7 @@
 setup.cfg
 setup.py
 pytheas/__init__.py
+pytheas/command_interpreter.py
+pytheas/errors.py
 pytheas/patterns.py
 pytheas/sfdaemon.py
