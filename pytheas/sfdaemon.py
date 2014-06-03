@@ -2,11 +2,11 @@ import gevent
 import logging
 import time
 
-from command_interpreter import PytheasCommandInterpreter
+#from command_interpreter import PytheasCommandInterpreter
 from errors import CorruptedCommunicationException, InvalidCommandException
 
-from gevent.lock import Semaphore
-from gevent.server import StreamServer
+#from gevent.lock import Semaphore
+#from gevent.server import StreamServer
 
 logging.basicConfig(filename="pytheas.log")
 logger = logging.getLogger("pytheas")
@@ -39,16 +39,16 @@ class Pytheas(object):
         self.__fetcher = fetcher
         self.__sender = sender
         self.sleep_time = sleep_time
-        if port:
-            self.__external_server = StreamServer(("127.0.0.0", port), self.__listen_external)
-        else:
-            self.__external_server = None
+        #if port:
+        #    self.__external_server = StreamServer(("127.0.0.0", port), self.__listen_external)
+        #else:
+        #    self.__external_server = None
 
         self.__ticket_counter = 1
-        self.__ticket_counter_lock = Semaphore()
+        #self.__ticket_counter_lock = Semaphore()
 
         self.interpreter = command_interpreter
-        self.__default_interpreter = PytheasCommandInterpreter(self)
+        #self.__default_interpreter = PytheasCommandInterpreter(self)
 
     def __sendfetch(self):
         self.__sender.send(self.__fetcher.fetch())
@@ -101,10 +101,6 @@ class Pytheas(object):
 
     def run(self):
         logger.info("Daemon started")
-
-        if self.__external_server:
-            self.__external_server.start()
-            logger.info("External server started")
         
         while True:
             self.__sender.send(self.__fetcher.fetch())
